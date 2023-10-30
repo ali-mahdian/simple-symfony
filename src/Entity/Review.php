@@ -22,7 +22,7 @@ class Review
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Car $car_id = null;
+    private ?Car $car = null;
 
     public function getId(): ?int
     {
@@ -53,14 +53,14 @@ class Review
         return $this;
     }
 
-    public function getCarId(): ?Car
+    public function getCar(): ?Car
     {
-        return $this->car_id;
+        return $this->car;
     }
 
-    public function setCarId(?Car $car_id): static
+    public function setCar(?Car $car): static
     {
-        $this->car_id = $car_id;
+        $this->car = $car;
 
         return $this;
     }
