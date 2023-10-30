@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ReviewRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Review
 {
     #[ORM\Id]
@@ -23,6 +24,15 @@ class Review
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?Car $car = null;
+
+    #[ORM\Column(type: 'datetime')]
+    private $createdAt;
+
+     #[ORM\PrePersist]
+    public function onPrePersist(): void
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
@@ -63,5 +73,10 @@ class Review
         $this->car = $car;
 
         return $this;
+    }
+
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
     }
 }
