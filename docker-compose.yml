@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  web:
+    image: nginx:1.25.3
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+    networks:
+      - app-network
+
+  php:
+    image: php:8.1-fpm
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/var/www/html
+    networks:
+      - app-network
+    environment:
+      - APP_ENV=dev
+      - DATABASE_URL=postgresql://admin:secret@db:5432/simple-symfony
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: simple-symfony
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
