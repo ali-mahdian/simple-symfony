@@ -27,7 +27,7 @@ services:
       - DATABASE_URL=postgresql://admin:secret@db:5432/simple-symfony
 
   db:
-    image: postgres:13
+    image: postgres:15
     environment:
       POSTGRES_DB: simple-symfony
       POSTGRES_USER: admin
