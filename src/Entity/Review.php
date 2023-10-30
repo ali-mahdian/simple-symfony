@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ReviewRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ReviewRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -18,9 +19,11 @@ class Review
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Groups(["output"])]
     private ?int $rating = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(["output"])]
     private ?string $text = null;
 
     #[ORM\ManyToOne]
@@ -28,6 +31,7 @@ class Review
     private ?Car $car = null;
 
     #[ORM\Column(type: 'datetime')]
+    #[Groups(["output"])]
     private $createdAt;
 
      #[ORM\PrePersist]
