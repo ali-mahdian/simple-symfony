@@ -29,6 +29,7 @@
         "symfony/yaml": "6.3.*"
     },
     "require-dev": {
+        "dama/doctrine-test-bundle": "^7.2",
         "phpunit/phpunit": "10.4.2",
         "symfony/debug-bundle": "6.3.*",
         "symfony/maker-bundle": "^1.51"
